@@ -1,6 +1,5 @@
 def jogar():
     from getpass import getpass
-    from colorama import Fore
     print("*********************************")
     print("***Bem vindo ao jogo da Forca!***")
     print("*********************************"'\n\n')
@@ -29,7 +28,7 @@ def jogar():
                 if(chute == letra.upper()):
                     acertos[index] = " {} ".format(letra)
                 index += 1
-            print('\033[31m','Acertou!')
+            print('\033[32m','Acertou!')
             print('\033[39m')
         else:
             tentativa += 1
