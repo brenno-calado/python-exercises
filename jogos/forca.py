@@ -12,7 +12,7 @@ def jogar():
             secret_word = 'jazz'.upper()
         else:
             print('Por favor, Digite o número 1 ou 2...')
-    acertos = len(secret_word) * [' _ ']
+    acertos = [' _ ' for letra in secret_word]
     tentativa = 0
     chances = 6
     print('palavra: ',''.join(acertos),'\n')
