@@ -2,3 +2,11 @@ banana
 melancia
 uva
 goiaba
+caja
+morango
+abacaxi
+cupuaçu
+atimoia
+graviola
+pinha
+maracuja
