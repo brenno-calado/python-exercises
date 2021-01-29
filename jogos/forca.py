@@ -12,24 +12,19 @@ def jogar():
     while(True):
         print('Tentativa {} de {}...'.format(tentativa + 1,chances))
         print('Faltam {} letras para acertar a palavra'.format(acertos.count(' _ ')))
-        chute = input('Digite uma letra:')
-        chute = chute.strip().upper()
+        
+        guess = try_guess()
         print('*******************************************************')
-        if(chute in secret_word):
-            index = 0
-            for letra in secret_word:
-                if(chute == letra.upper()):
-                    acertos[index] = " {} ".format(letra)
-                index += 1
-            print('\033[32m','Acertou!')
-            print('\033[39m')
+        if(guess in secret_word):
+            find_match()
         else:
             tentativa += 1
             print('\033[31m','Ops! Você errou!')
             print('\033[39m')
+        
         print('palavra: ',''.join(acertos),'\n')
         if(acertos.count(' _ ') == 0):
-            print('Parabéns!')
+            print('Você ganhou! Parabéns!')
             break
         elif(tentativa == chances):
             print('Tente outra vez!')
@@ -70,6 +65,19 @@ def load_game_mode():
 
 def load_acertos(secret_word):
         return [' _ ' for letra in secret_word]
+
+def try_guess():
+    guess = input('Digite uma letra:').strip().upper()
+    return guess
+
+def find_match(secret_word, guess, acertos):
+    index = 0
+    for letra in secret_word:
+        if(guess == letra.upper()):
+            acertos[index] = " {} ".format(letra)
+        index += 1
+    print('\033[32m','Acertou!')
+    print('\033[39m')
 
 def bye_message():
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
