@@ -1,15 +1,28 @@
+from os import write
+
+
 def jogar():
     from getpass import getpass
+    import random
+
     print("*********************************")
     print("***Bem vindo ao jogo da Forca!***")
     print("*********************************"'\n\n')
+    
+    words = []
+    with open('palavras.txt') as file:
+        for line in file:
+            line = line.strip()
+            words.append(line)
+    
     secret_word = ''
     while(secret_word == ''):
         game_mode = input('Digite o modo do jogo: (1) jogador OU (2) jogadores: ')
         if(game_mode == '2'):
             secret_word = getpass("coloque uma palavra secreta para o amigo adivinhar: ").upper()
         elif(game_mode == '1'):
-            secret_word = 'jazz'.upper()
+            random_index = random.randrange(0, len(words))
+            secret_word = words[random_index].upper()
         else:
             print('Por favor, Digite o número 1 ou 2...')
     acertos = [' _ ' for letra in secret_word]
