@@ -7,7 +7,7 @@ def jogar():
     acertos = load_acertos(secret_word)
 
     tentativa = 0
-    chances = 6
+    chances = 7
     print('palavra: ',''.join(acertos),'\n')
     while(True):
         print('Tentativa {} de {}...'.format(tentativa + 1,chances))
@@ -16,18 +16,19 @@ def jogar():
         guess = try_guess()
         print('*******************************************************')
         if(guess in secret_word):
-            find_match()
+            find_match(secret_word, guess, acertos)
         else:
             tentativa += 1
             print('\033[31m','Ops! Você errou!')
+            draw_hangman(tentativa)
             print('\033[39m')
         
         print('palavra: ',''.join(acertos),'\n')
         if(acertos.count(' _ ') == 0):
-            print('Você ganhou! Parabéns!')
+            win_message()
             break
         elif(tentativa == chances):
-            print('Tente outra vez!')
+            fail_message(secret_word)
             break
 
     bye_message()
@@ -70,13 +71,72 @@ def try_guess():
     guess = input('Digite uma letra:').strip().upper()
     return guess
 
-def find_match(secret_word, guess, acertos):
+def find_match(word, guess, hits):
     index = 0
-    for letra in secret_word:
+    for letra in word:
         if(guess == letra.upper()):
-            acertos[index] = " {} ".format(letra)
+            hits[index] = " {} ".format(letra)
         index += 1
     print('\033[32m','Acertou!')
+    print('\033[39m')
+
+def draw_hangman(miss):
+    print("  _______     ")
+    print(" |/      |    ")
+
+    if(miss == 1):
+        print(" |      (_)   ")
+        print(" |            ")
+        print(" |            ")
+        print(" |            ")
+
+    if(miss == 2):
+        print(" |      (_)   ")
+        print(" |      \     ")
+        print(" |            ")
+        print(" |            ")
+
+    if(miss == 3):
+        print(" |      (_)   ")
+        print(" |      \|    ")
+        print(" |            ")
+        print(" |            ")
+
+    if(miss == 4):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |            ")
+        print(" |            ")
+
+    if(miss == 5):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |            ")
+
+    if(miss == 6):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      /     ")
+
+    if (miss == 7):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      / \   ")
+
+    print(" |            ")
+    print("_|___         ")
+    print()
+
+def win_message():
+    print('\033[32m','Parabéns, Você ganhou!')
+    print('\033[39m')
+
+def fail_message(word):
+    print('A palavra era {}'.format(word))
+    print('\033[31m','Tente outra vez!')
     print('\033[39m')
 
 def bye_message():
